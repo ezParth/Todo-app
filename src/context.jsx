@@ -1,5 +1,3 @@
-import React, { useContext, createContext } from "react";
+import React, { useContext, createContext, useState } from "react";
 
-const todoContext = createContext([]);
-
-
+export const todoContext = createContext([]);
