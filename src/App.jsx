@@ -1,15 +1,19 @@
-import { useState } from "react";
-import todoContext from "./context";
+import { useEffect, useState } from "react";
+import{ todoContext } from "./context";
 import Task from "./components/Task";
 
-const [tasks, setTasks] = useState("");
+function App() {
+  const [tasks, setTasks] = useState("");
 
-return (
-  <div>
+  return (
     <div>
-      <todoContext.Provider value={{tasks, setTasks}}>
-        <Task />
-      </todoContext.Provider>
+      <div>
+        <todoContext.Provider value={{ tasks, setTasks }}>
+          <Task />
+        </todoContext.Provider>
+      </div>
     </div>
-  </div>
-);
+  );
+}
+
+export default App;
