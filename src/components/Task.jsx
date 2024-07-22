@@ -2,13 +2,31 @@ import React, { useContext, useEffect, useRef } from "react";
 import { todoContext } from "../context";
 
 function Task() {
-  const addInputRef = useRef("");
+  const addInputRef = useRef(null);
 
   const generateId = () => {
     return Date.now().toString(32);
   };
 
   const { tasks, setTasks } = useContext(todoContext);
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      document.getElementById("input-btn").click();
+    }
+  };
+
+  useEffect(() => {
+    if (addInputRef.current) {
+      addInputRef.current.addEventListener("keypress", handleKeyPress);
+    }
+    return () => {
+      if (addInputRef.current) {
+        addInputRef.current.removeEventListener("keypress", handleKeyPress);
+      }
+    };
+  }, []);
 
   const handleAddTask = () => {
     const inputTask = {
@@ -27,11 +45,11 @@ function Task() {
   }, [tasks]);
 
   return (
-    <div className="addTask">
-      <div>
-        <input type="text" id="input-task" ref={addInputRef} />
+    <div className="top-nav">
+      <div className="input-container">
+        <input type="text" id="task-Input" ref={addInputRef} placeholder="Add a new task" />
         <button id="input-btn" onClick={handleAddTask}>
-          Add task...
+        ✔️
         </button>
       </div>
     </div>
