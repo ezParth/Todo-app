@@ -5,6 +5,7 @@ function TaskList() {
   const { tasks, setTasks } = useContext(todoContext);
   const [isEditing, setIsEditing] = useState(false);
   const [currentTask, setCurrentTask] = useState({});
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const handleDelete = (id) => {
     const updatedTasks = tasks.filter((task) => task.id !== id);
@@ -23,12 +24,16 @@ function TaskList() {
 
   const handleEditFormSubmit = (e) => {
     e.preventDefault();
-    const updatedTasks = tasks.map((task) => 
-    task.id === currentTask.id ? currentTask : task
+    const updatedTasks = tasks.map((task) =>
+      task.id === currentTask.id ? currentTask : task
     );
     setTasks(updatedTasks);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     setIsEditing(false);
+  };
+
+  const handleCompleted = (id) => {
+    setIsCompleted(true)
   };
 
   return (
@@ -54,7 +59,13 @@ function TaskList() {
                 </form>
               ) : (
                 <>
-                  <span>🫵 {task.task}</span>
+                  <div>
+                    {isCompleted ? (
+                      <span>✅ {task.task}</span>
+                    ) : (
+                      <span>⬜ {task.task}</span>
+                    )}
+                  </div>
                   <div className="button-container">
                     <button
                       id="delete-btn"
@@ -64,6 +75,9 @@ function TaskList() {
                     </button>
                     <button id="edit-btn" onClick={() => handleEdit(task)}>
                       ✏️
+                    </button>
+                    <button id="completed-btn" onClick={() => handleCompleted(task.id)}>
+                    ✅
                     </button>
                   </div>
                 </>
