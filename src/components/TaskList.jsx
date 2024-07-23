@@ -10,6 +10,10 @@ function TaskList() {
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
 
+  const handleEdit = (id) => {
+
+  }
+
   return (
     <div>
       <h3>Your Todos</h3>
@@ -17,10 +21,15 @@ function TaskList() {
         <ul>
           {tasks.map((task) => (
             <li key={task.id} id="list">
-              {task.task}
-              <button id="delete-btn" onClick={() => handleDelete(task.id)}>
-                ❌
-              </button>
+              <span>🫵 {task.task}</span>
+              <div className="button-container">
+                <button id="delete-btn" onClick={() => handleDelete(task.id)}>
+                  ❌
+                </button>
+                <button id="edit-btn" onClick={() => handleEdit(task.id)}>
+                  ✏️
+                </button>
+              </div>
             </li>
           ))}
         </ul>

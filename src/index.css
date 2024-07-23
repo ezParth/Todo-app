@@ -97,9 +97,14 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.button-container{
+  display: flex;
+  gap: 10px;
+}
+
 #delete-btn{
   padding: 0.5%;
-  margin: 2%;
+  margin-right: 0%;
   box-shadow: #000;
   border-radius: 5px;
   cursor: pointer;
@@ -110,6 +115,22 @@
   background-color: #fcaaaa; /* Darker red on hover */
   transition: 0.3s;
 }
+
+#edit-btn{
+  padding: 0.5%;
+  margin-right: 0%;
+  box-shadow: #000;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: #c8f7ea 0.1 ease;
+}
+
+#edit-btn:hover {
+  background-color: #c8f7ea; /* Darker red on hover */
+  transition: 0.3s;
+}
+
+
 
 h3{
   font-family: sans-serif;
@@ -128,3 +149,4 @@ h3{
   border: 2px solid #000000;
   border-radius: 2%;
 }
+
