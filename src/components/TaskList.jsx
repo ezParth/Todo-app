@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { todoContext } from "../context";
 
 function TaskList() {
   const { tasks, setTasks } = useContext(todoContext);
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentTask, setCurrentTask] = useState({});
 
   const handleDelete = (id) => {
     const updatedTasks = tasks.filter((task) => task.id !== id);
@@ -10,9 +12,24 @@ function TaskList() {
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
 
-  const handleEdit = (id) => {
+  const handleEdit = (task) => {
+    setIsEditing(true);
+    setCurrentTask(task);
+  };
 
-  }
+  const handleEditInputChange = () => {
+    setCurrentTask({ ...currentTask, task: e.target.value });
+  };
+
+  const handleEditFormSubmit = () => {
+    e.preventDefault();
+    const updatedTasks = tasks.map((task) => 
+    task.id === currentTask.id ? currentTask : task
+    );
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    setIsEditing(false);
+  };
 
   return (
     <div>
@@ -21,15 +38,36 @@ function TaskList() {
         <ul>
           {tasks.map((task) => (
             <li key={task.id} id="list">
-              <span>🫵 {task.task}</span>
-              <div className="button-container">
-                <button id="delete-btn" onClick={() => handleDelete(task.id)}>
-                  ❌
-                </button>
-                <button id="edit-btn" onClick={() => handleEdit(task.id)}>
-                  ✏️
-                </button>
-              </div>
+              {isEditing && currentTask.id === task.id ? (
+                <form onSubmit={handleEditFormSubmit}>
+                  <input
+                    type="text"
+                    value={currentTask.task}
+                    onChange={handleEditInputChange}
+                  />
+                  <button id="edit-btn" type="submit">
+                    ✔️
+                  </button>
+                  <button id="delete-btn" onClick={() => setIsEditing(false)}>
+                    ❌
+                  </button>
+                </form>
+              ) : (
+                <>
+                  <span>🫵 {task.task}</span>
+                  <div className="button-container">
+                    <button
+                      id="delete-btn"
+                      onClick={() => handleDelete(task.id)}
+                    >
+                      ❌
+                    </button>
+                    <button id="edit-btn" onClick={() => handleEdit(task)}>
+                      ✏️
+                    </button>
+                  </div>
+                </>
+              )}
             </li>
           ))}
         </ul>
