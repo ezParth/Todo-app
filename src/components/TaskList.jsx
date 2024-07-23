@@ -8,6 +8,19 @@ function TaskList() {
     setTasks(tasks.filter((Task) => Task.id !== id));
   };
 
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("tasks")
+    if(storedUserData) {
+      setTasks(JSON.parse(storedUserData))
+    }else{
+      console.log("Todos Not Found :(");
+    }
+  }, [setTasks])
+
   return (
     <div>
       <h3>Your Todos</h3>
