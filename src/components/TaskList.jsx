@@ -17,11 +17,11 @@ function TaskList() {
     setCurrentTask(task);
   };
 
-  const handleEditInputChange = () => {
+  const handleEditInputChange = (e) => {
     setCurrentTask({ ...currentTask, task: e.target.value });
   };
 
-  const handleEditFormSubmit = () => {
+  const handleEditFormSubmit = (e) => {
     e.preventDefault();
     const updatedTasks = tasks.map((task) => 
     task.id === currentTask.id ? currentTask : task
