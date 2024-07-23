@@ -1,25 +1,31 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect } from "react";
 import { todoContext } from "../context";
 
 function TaskList() {
   const { tasks, setTasks } = useContext(todoContext);
 
   const handleDelete = (id) => {
-    setTasks(tasks.filter((Task) => Task.id !== id));
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
 
+  // Load tasks from local storage when the component mounts
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
-  useEffect(() => {
-    const storedUserData = localStorage.getItem("tasks")
-    if(storedUserData) {
-      setTasks(JSON.parse(storedUserData))
-    }else{
+    const storedUserData = localStorage.getItem("tasks");
+    if (storedUserData) {
+      console.log("Loading tasks from local storage:", storedUserData);
+      setTasks(JSON.parse(storedUserData));
+    } else {
       console.log("Todos Not Found :(");
     }
-  }, [setTasks])
+  }, [setTasks]);
+
+  // Save tasks to local storage whenever tasks state changes
+  useEffect(() => {
+    console.log("Saving tasks to local storage:", tasks);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   return (
     <div>
