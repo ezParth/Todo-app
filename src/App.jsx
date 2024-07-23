@@ -4,8 +4,10 @@ import Task from "./components/Task";
 import TaskList from "./components/TaskList";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-
+  const [tasks, setTasks] = useState(() => {
+  const storedTask = localStorage.getItem("tasks");
+  return storedTask ? JSON.parse(storedTask) : []
+  })
   return (
     <div className="todo-app-container">
       <div>

@@ -36,7 +36,7 @@ function Task() {
     setTasks((prevTasks) => [...prevTasks, inputTask]);
     addInputRef.current.value = "";
     addInputRef.current.focus();
-  };
+  };     
 
   useEffect(() => {
     if (tasks.length > 0) {

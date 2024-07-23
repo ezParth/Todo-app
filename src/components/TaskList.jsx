@@ -10,22 +10,23 @@ function TaskList() {
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
 
-  // Load tasks from local storage when the component mounts
-  useEffect(() => {
-    const storedUserData = localStorage.getItem("tasks");
-    if (storedUserData) {
-      console.log("Loading tasks from local storage:", storedUserData);
-      setTasks(JSON.parse(storedUserData));
-    } else {
-      console.log("Todos Not Found :(");
-    }
-  }, [setTasks]);
-
-  // Save tasks to local storage whenever tasks state changes
-  useEffect(() => {
-    console.log("Saving tasks to local storage:", tasks);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
+  
+    // Load tasks from local storage when the component mounts
+    useEffect(() => {
+      const storedUserData = localStorage.getItem("tasks");
+      if (storedUserData) {
+        console.log("Loading tasks from local storage:", storedUserData);
+        setTasks(JSON.parse(storedUserData));
+      } else {
+        console.log("Todos Not Found :(");
+      }
+    }, [setTasks]);
+  
+    // Save tasks to local storage whenever tasks state changes
+    useEffect(() => {
+      console.log("Saving tasks to local storage:", tasks);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }, [tasks]);      
 
   return (
     <div>
